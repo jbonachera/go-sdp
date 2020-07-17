@@ -252,10 +252,10 @@ func (d *Decoder) origin(v string) (*Origin, error) {
 	o := new(Origin)
 	o.Username, o.Network, o.Type, o.Address = p[0], p[3], p[4], p[5]
 	var err error
-	if o.SessionID, err = d.int(p[1]); err != nil {
+	if o.SessionID, err = d.uint(p[1]); err != nil {
 		return nil, err
 	}
-	if o.SessionVersion, err = d.int(p[2]); err != nil {
+	if o.SessionVersion, err = d.uint(p[2]); err != nil {
 		return nil, err
 	}
 	return o, nil
@@ -418,6 +418,10 @@ func (d *Decoder) duration(v string) (time.Duration, error) {
 
 func (d *Decoder) int(v string) (int64, error) {
 	return strconv.ParseInt(v, 10, 64)
+}
+
+func (d *Decoder) uint(v string) (uint64, error) {
+	return strconv.ParseUint(v, 10, 64)
 }
 
 func (d *Decoder) fields(s string, n int) ([]string, bool) {

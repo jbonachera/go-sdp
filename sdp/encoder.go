@@ -79,6 +79,9 @@ func (w writer) str(v string) writer {
 func (w writer) int(v int64) writer {
 	return strconv.AppendInt(w, v, 10)
 }
+func (w writer) uint(v uint64) writer {
+	return strconv.AppendUint(w, v, 10)
+}
 
 func (w writer) sp() writer {
 	return append(w, ' ')
@@ -135,7 +138,7 @@ func (w writer) session(s *Session) writer {
 }
 
 func (w writer) origin(o *Origin) writer {
-	return w.str(strdef(o.Username, "-")).sp().int(o.SessionID).sp().int(o.SessionVersion).sp().transport(o.Network, o.Type, o.Address)
+	return w.str(strdef(o.Username, "-")).sp().uint(o.SessionID).sp().uint(o.SessionVersion).sp().transport(o.Network, o.Type, o.Address)
 }
 
 func (w writer) media(m *Media) writer {

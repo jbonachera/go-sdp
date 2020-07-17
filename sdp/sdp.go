@@ -43,8 +43,8 @@ func (s *Session) Bytes() []byte {
 // Origin represents an originator of the session.
 type Origin struct {
 	Username       string
-	SessionID      int64
-	SessionVersion int64
+	SessionID      uint64
+	SessionVersion uint64
 	Network        string
 	Type           string
 	Address        string
